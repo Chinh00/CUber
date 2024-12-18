@@ -1,5 +1,3 @@
-using Serilog;
-
 namespace Infrastructure.Logging;
 
 public static class Extensions
@@ -10,7 +8,7 @@ public static class Extensions
         var loggerConfiguration = new LoggerConfiguration().WriteTo.Console().CreateLogger();
         
         Log.Logger = loggerConfiguration;
-        services.AddLogging();
+        services.AddSerilog();
         action?.Invoke(services);
         return services;
     }

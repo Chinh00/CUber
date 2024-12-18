@@ -1,6 +1,3 @@
-using Infrastructure.Auth;
-using Infrastructure.Controllers;
-using Infrastructure.Logging;
 
 namespace Infrastructure;
 
