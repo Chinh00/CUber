@@ -2,10 +2,11 @@ namespace Infrastructure.Controllers;
 
 public static class Extensions
 {
-    public static IServiceCollection AddControllerService(this IServiceCollection services,
+    public static IServiceCollection AddControllerService(this IServiceCollection services, Type[] types,
         Action<IServiceCollection>? action = null)
     {
         services.AddControllers();
+        //services.AddMediatR(e => e.RegisterServicesFromAssemblies());
         
         action?.Invoke(services);
         return services;
