@@ -1,4 +1,6 @@
 
+using Infrastructure.Swagger;
+
 namespace Infrastructure;
 
 public static class Extensions
@@ -10,6 +12,7 @@ public static class Extensions
         services.AddLoggingService();
         services.AddAuthService();
         services.AddControllerService(types);
+        services.AddSwaggerService();
         action?.Invoke(services);
         return services;
     }
@@ -17,7 +20,7 @@ public static class Extensions
     {
         app.UseAuthService();
         app.UseControllerService();
-        
+        app.UseSwaggerService();
         return app;
     }
 }

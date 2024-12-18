@@ -24,10 +24,27 @@ public class AggregateBase : BaseEntity, IAggregateRoot
     public long Version { get; set; } 
     
     
-    public void AddDomainEvent(DomainEvent domainEvent)
+    
+    public void AddDomainEvent(Func<long, DomainEvent> handler)
     {
         _domainEvents ??= new List<DomainEvent>();
+        var domainEvent = handler(Version);    
         _domainEvents.Add(domainEvent);
+    }
+
+    protected virtual void ApplyDomainEvent(DomainEvent domainEvent)
+    {
+        Version = domainEvent.Version;
+    } 
+    
+    public void LoadFromHistory(IEnumerable<DomainEvent> history)
+    {
+        foreach (var domainEvent in history)
+        {
+            ApplyDomainEvent(domainEvent);
+        }
     }
     
 }
+
+public record EventStoreBase(Guid Id, DateTime CreatedAt);

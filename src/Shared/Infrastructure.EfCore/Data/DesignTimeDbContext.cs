@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 namespace Infrastructure.EfCore.Data;
 
 public class DesignTimeDbContext<TDbContext> : IDesignTimeDbContextFactory<TDbContext>
-    where TDbContext : AppBaseContext
+    where TDbContext : DbContext
 {
     public TDbContext CreateDbContext(string[] args)
     {
