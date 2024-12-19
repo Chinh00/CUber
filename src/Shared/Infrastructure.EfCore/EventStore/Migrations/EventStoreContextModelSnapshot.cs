@@ -28,8 +28,14 @@ namespace Infrastructure.EfCore.EventStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("AggregateType")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EventType")
                         .HasColumnType("text");

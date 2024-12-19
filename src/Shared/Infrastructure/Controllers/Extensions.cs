@@ -6,7 +6,7 @@ public static class Extensions
         Action<IServiceCollection>? action = null)
     {
         services.AddControllers();
-        //services.AddMediatR(e => e.RegisterServicesFromAssemblies());
+        services.AddMediatR(e => e.RegisterServicesFromAssemblies(types.Select(c => c.Assembly).ToArray()));
         
         action?.Invoke(services);
         return services;

@@ -10,7 +10,7 @@ public class Customer : AggregateBase
     public string PhoneNumber { get; set; }
 
 
-    void CreateCustomer(string fullName, string email, string phoneNumber)
+    public void Create(string fullName, string email, string phoneNumber)
     {
         FullName = fullName;
         Email = email;

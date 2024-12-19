@@ -40,6 +40,7 @@ public class RepositoryBase<TDbContext, TEntity> : IRepository<TEntity>, IListRe
             {
                 pre = pre.And(specification.Predicates[i]);
             }
+
             source = source.Where(pre);
         }
 

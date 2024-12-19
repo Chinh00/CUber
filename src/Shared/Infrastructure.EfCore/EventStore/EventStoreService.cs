@@ -2,19 +2,28 @@ using Core.EventStore;
 
 namespace Infrastructure.EfCore.EventStore;
 
-public class EventStoreService(EventStoreContext context) : IEventStoreService
+public sealed class EventStoreService(EventStoreContext context) : IEventStoreService
 {
-    public async Task ApplyDomainEvents<TAggregateRoot>(TAggregateRoot aggregateRoot) where TAggregateRoot : IAggregateRoot
+    public async Task ApplyDomainEvents<TAggregateRoot>(TAggregateRoot aggregateRoot) where TAggregateRoot : AggregateBase
     {
         foreach (var domainEvent in aggregateRoot.DomainEvents)
         {
-            var @event = EventStoreEntity.Create<TAggregateRoot>(Guid.NewGuid(), domainEvent, domainEvent.Version);
+            var @event = EventStoreEntity.Create<TAggregateRoot>(Guid.NewGuid(), aggregateRoot.Id, domainEvent);
             await context.Set<EventStoreEntity>().AddAsync(@event);
+            await context.SaveChangesAsync();
         }
     }
 
-    public async Task<IEnumerator<DomainEvent>> LoadEventsAsync(Guid aggregateId)
+    public async Task<TEntity> LoadEventsAsync<TEntity>(Guid aggregateId,
+        CancellationToken cancellationToken)
+        where TEntity : AggregateBase, new()
+
     {
-        throw new NotImplementedException();
+        var eventStoreEntities = await context.Set<EventStoreEntity>().Where(e => e.AggregateId == aggregateId)
+            .ToListAsync(cancellationToken: cancellationToken);
+        var aggreagte = new TEntity();
+        aggreagte.LoadFromHistory(eventStoreEntities.Select(e => e.Payload));
+        return aggreagte;
     }
+
 }

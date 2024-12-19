@@ -2,6 +2,6 @@ namespace Core.EventStore;
 
 public interface IEventStoreService
 {
-    Task ApplyDomainEvents<TAggregateRoot>(TAggregateRoot aggregateRoot) where TAggregateRoot : IAggregateRoot;
-    Task<IEnumerator<DomainEvent>> LoadEventsAsync(Guid aggregateId);
+    Task ApplyDomainEvents<TAggregateRoot>(TAggregateRoot aggregateRoot) where TAggregateRoot : AggregateBase;
+    Task<TEntity> LoadEventsAsync<TEntity> (Guid aggregateId, CancellationToken cancellationToken) where TEntity : AggregateBase, new();
 }

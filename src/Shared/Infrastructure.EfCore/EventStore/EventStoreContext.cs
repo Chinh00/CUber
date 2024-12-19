@@ -1,5 +1,7 @@
-using System.Text.Json;
 using Core.EventStore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Newtonsoft.Json;
+using JsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
 
 namespace Infrastructure.EfCore.EventStore;
 
@@ -11,8 +13,8 @@ public class EventStoreContext(DbContextOptions<EventStoreContext> options) : Db
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<EventStoreEntity>(c =>
         {
-            c.Property(e => e.Payload).HasConversion(l => JsonSerializer.Serialize(l, new JsonSerializerOptions()),
-                r => JsonSerializer.Deserialize<DomainEvent>(r, new JsonSerializerOptions()));
+            c.Property(e => e.Payload).HasConversion(new ValueConverter<DomainEvent,string>(l => JsonConvert.SerializeObject(l),
+                r => JsonConvert.DeserializeObject<DomainEvent>(r)));
         });
     }
 }

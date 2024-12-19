@@ -1,13 +1,14 @@
+using Core.Domain;
 using Infrastructure.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using UserService.AppCore.UseCases.Commands;
 
 namespace UserService.Api.Controllers;
 
-public class UserController : BaseController
+public class CustomerController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> HandleCreateUserAsync(CreateUserCommand command, CancellationToken cancellationToken)
+    public async Task<IActionResult> HandleCreateCustomerAsync(CreateCustomerCommand command, CancellationToken cancellationToken)
     {
         return Ok(await Mediator.Send(command, cancellationToken));
     }

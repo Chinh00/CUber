@@ -13,9 +13,10 @@ public class ListSpecificationBase<TEntity> : IListSpecification<TEntity>
     public int Take { get; } = 1;
     public int Skip { get; } = 15;
 
-    void ApplyFilter(FilterModel filter)
+    protected void ApplyFilter(FilterModel filter)
     {
         Predicates.Add(Extensions.BuildFilter<TEntity>(filter));
     }
+    protected void ApplyFilters(List<FilterModel> filters) => filters.ForEach(ApplyFilter);
     
 }

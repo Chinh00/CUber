@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.EfCore.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreContext))]
-    [Migration("20241218125751_InitDb")]
+    [Migration("20241219121703_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -31,8 +31,14 @@ namespace Infrastructure.EfCore.EventStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("AggregateId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("AggregateType")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EventType")
                         .HasColumnType("text");

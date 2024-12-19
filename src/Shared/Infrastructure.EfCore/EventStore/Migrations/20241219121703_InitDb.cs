@@ -16,10 +16,12 @@ namespace Infrastructure.EfCore.EventStore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AggregateId = table.Column<Guid>(type: "uuid", nullable: false),
                     AggregateType = table.Column<string>(type: "text", nullable: true),
                     EventType = table.Column<string>(type: "text", nullable: true),
                     Payload = table.Column<string>(type: "text", nullable: true),
-                    Version = table.Column<long>(type: "bigint", nullable: false)
+                    Version = table.Column<long>(type: "bigint", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
