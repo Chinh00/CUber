@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Infrastructure.Mongodb\Infrastructure.Mongodb.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
     </ItemGroup>

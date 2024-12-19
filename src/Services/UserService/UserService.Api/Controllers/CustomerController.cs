@@ -1,4 +1,3 @@
-using Core.Domain;
 using Infrastructure.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using UserService.AppCore.UseCases.Commands;

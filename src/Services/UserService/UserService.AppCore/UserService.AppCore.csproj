@@ -18,11 +18,12 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\..\..\Shared\Core\Core.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Infrastructure.Mongodb\Infrastructure.Mongodb.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UseCases\Consumers\" />
+      <Folder Include="UseCases\Queries\" />
     </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
 using Core.EventStore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
-using JsonSerializerOptions = System.Text.Json.JsonSerializerOptions;
 
 namespace Infrastructure.EfCore.EventStore;
 

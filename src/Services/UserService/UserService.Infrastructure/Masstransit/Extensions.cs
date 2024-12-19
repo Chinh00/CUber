@@ -1,5 +1,7 @@
 using Confluent.Kafka;
 using Contracts.Services;
+using Core.EventStore;
+using Infrastructure.Masstransit.BusService;
 using MassTransit;
 
 namespace UserService.Infrastructure.Masstransit;
@@ -35,6 +37,7 @@ public static class Extensions
                 });
             });
         });
+        services.AddScoped<IEventBusService, BusService>();
         action?.Invoke(services);
         return services;
     }   

@@ -1,6 +1,11 @@
 namespace Core.Domain;
 
-public interface DomainEvent
+public class EventBase
+{
+    
+}
+
+public interface DomainEvent : INotification
 {
     long Version { get; }
 }

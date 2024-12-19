@@ -1,11 +1,3 @@
-using Infrastructure;
-using Infrastructure.AutoMapper;
-using Infrastructure.EfCore.Data;
-using Infrastructure.EfCore.EventStore;
-using UserService.AppCore;
-using UserService.Infrastructure.Data;
-using UserService.Infrastructure.Masstransit;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -13,7 +5,8 @@ builder.Services.AddServiceDefault(builder.Configuration, [typeof(Program), type
     .AddEfCoreDefault<UserContext>(builder.Configuration, typeof(UserContext))
     .AddEventStore(builder.Configuration)
     .AddAutoMapperService(typeof(Anchor))
-    .AddMasstransitService(builder.Configuration);
+    .AddMasstransitService(builder.Configuration)
+    .AddMongodbService(builder.Configuration);
 
 var app = builder.Build();
 

@@ -6,13 +6,9 @@ namespace Infrastructure.Masstransit.BusService;
 
 public class BusService(IServiceProvider serviceProvider, ILogger<BusService> logger) : IEventBusService
 {
-    public async Task PublishEventAsync<TAggregate>(TAggregate aggregate, CancellationToken cancellationToken = default) where TAggregate : AggregateBase
+    public async Task PublishEventAsync<TEvent>(TEvent @event, CancellationToken cancellationToken = default) where TEvent : class, DomainEvent
     {
-        foreach (var domainEvent in aggregate.DomainEvents)
-        {
-            var type = domainEvent.GetType();
-            var topicProducer = serviceProvider.GetService(typeof(ITopicProducer<>).MakeGenericType(type));
-            
-        }
+        var topicProducer = serviceProvider.GetRequiredService<ITopicProducer<TEvent>>();
+        if (topicProducer is not null) await topicProducer.Produce(@event, cancellationToken);
     }
 }

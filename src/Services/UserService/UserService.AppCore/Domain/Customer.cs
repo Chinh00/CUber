@@ -15,7 +15,7 @@ public class Customer : AggregateBase
         FullName = fullName;
         Email = email;
         PhoneNumber = phoneNumber;
-        AddDomainEvent((version) => new CustomerCreatedDomainEvent(fullName, email, phoneNumber, version + 1));
+        AddDomainEvent((version) => new CustomerCreatedDomainEvent(Id, fullName, email, phoneNumber, version + 1));
     }
 
     protected override void ApplyDomainEvent(DomainEvent domainEvent)
