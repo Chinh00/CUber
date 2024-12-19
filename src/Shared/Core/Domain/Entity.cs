@@ -32,16 +32,14 @@ public class AggregateBase : BaseEntity, IAggregateRoot
         _domainEvents.Add(domainEvent);
     }
 
-    protected virtual void ApplyDomainEvent(DomainEvent domainEvent)
-    {
-        Version = domainEvent.Version;
-    } 
+    protected virtual void ApplyDomainEvent(DomainEvent domainEvent){}
     
     public void LoadFromHistory(IEnumerable<DomainEvent> history)
     {
         foreach (var domainEvent in history)
         {
-            ApplyDomainEvent(domainEvent);
+            Version = domainEvent.Version;
+            ApplyDomainEvent((dynamic)domainEvent);
         }
     }
     

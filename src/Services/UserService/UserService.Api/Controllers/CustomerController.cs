@@ -11,4 +11,9 @@ public class CustomerController : BaseController
     {
         return Ok(await Mediator.Send(command, cancellationToken));
     }
+    [HttpPut]
+    public async Task<IActionResult> HandleUpdateCustomerAsync(UpdateCustomerCommand command, CancellationToken cancellationToken)
+    {
+        return Ok(await Mediator.Send(command, cancellationToken));
+    }
 }

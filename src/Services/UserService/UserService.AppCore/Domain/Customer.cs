@@ -17,6 +17,13 @@ public class Customer : AggregateBase
         PhoneNumber = phoneNumber;
         AddDomainEvent((version) => new CustomerCreatedDomainEvent(Id, fullName, email, phoneNumber, version + 1));
     }
+    public void Update(string fullName, string email, string phoneNumber)
+    {
+        FullName = fullName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        AddDomainEvent((version) => new CustomerUpdatedDomainEvent(Id, fullName, email, phoneNumber, version + 1));
+    }
 
     protected override void ApplyDomainEvent(DomainEvent domainEvent)
     {
@@ -26,8 +33,17 @@ public class Customer : AggregateBase
 
     void Apply(CustomerCreatedDomainEvent @event)
     {
+        Id = @event.Id;
         FullName = @event.FullName;
         Email = @event.Email;
         PhoneNumber = @event.PhoneNumber;
     }
+    void Apply(CustomerUpdatedDomainEvent @event)
+    {
+        Id = @event.Id;
+        FullName = @event.FullName;
+        Email = @event.Email;
+        PhoneNumber = @event.PhoneNumber;
+    }
+
 }

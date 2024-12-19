@@ -21,6 +21,7 @@ public sealed class EventStoreService(EventStoreContext context) : IEventStoreSe
     {
         var eventStoreEntities = await context.Set<EventStoreEntity>().Where(e => e.AggregateId == aggregateId)
             .ToListAsync(cancellationToken: cancellationToken);
+        
         var aggreagte = new TEntity();
         aggreagte.LoadFromHistory(eventStoreEntities.Select(e => e.Payload));
         return aggreagte;

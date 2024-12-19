@@ -19,6 +19,7 @@ public static class Extensions
             k.AddRider(t =>
             {
                 t.AddProducer<CustomerCreatedDomainEvent>(nameof(CustomerCreatedDomainEvent));
+                t.AddProducer<CustomerUpdatedDomainEvent>(nameof(CustomerUpdatedDomainEvent));
 
 
 
@@ -28,6 +29,13 @@ public static class Extensions
                 {
                     configurator.Host(configuration["Kafka:BootstrapServers"]);
                     configurator.TopicEndpoint<CustomerCreatedDomainEvent>(nameof(CustomerCreatedDomainEvent), "customer-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureConsumer<EventDispatcher>(context);
+                        });
+                    configurator.TopicEndpoint<CustomerUpdatedDomainEvent>(nameof(CustomerUpdatedDomainEvent), "customer-group",
                         c =>
                         {
                             c.AutoOffsetReset = AutoOffsetReset.Earliest;

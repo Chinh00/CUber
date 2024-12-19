@@ -12,8 +12,11 @@ public class EventStoreContext(DbContextOptions<EventStoreContext> options) : Db
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<EventStoreEntity>(c =>
         {
-            c.Property(e => e.Payload).HasConversion(new ValueConverter<DomainEvent,string>(l => JsonConvert.SerializeObject(l),
-                r => JsonConvert.DeserializeObject<DomainEvent>(r)));
+            c.Property(e => e.Payload).HasConversion(new ValueConverter<DomainEvent?, string>(
+                l => JsonConvert.SerializeObject(l, typeof(DomainEvent),
+                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }),
+                r => JsonConvert.DeserializeObject<DomainEvent?>(r,
+                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto })));
         });
     }
 }
