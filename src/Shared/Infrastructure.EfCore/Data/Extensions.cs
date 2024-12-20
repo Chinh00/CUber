@@ -14,7 +14,7 @@ public static class Extensions
                 optionsBuilder.EnableRetryOnFailure();
             });
         });
-        services.AddHostedService<MigrationHostedService<TDbContext>>();
+        //services.AddHostedService<MigrationHostedService<TDbContext>>();
         services.Scan(e =>
             e.FromAssembliesOf(type).AddClasses(t => t.AssignableTo<IRootRepository>()).AsImplementedInterfaces()
                 .WithScopedLifetime());

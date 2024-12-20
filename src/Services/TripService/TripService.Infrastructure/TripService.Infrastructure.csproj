@@ -24,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\TripService.AppCore\TripService.AppCore.csproj" />
