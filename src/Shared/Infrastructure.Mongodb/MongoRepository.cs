@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using Core.Domain;
 using MongoDB.Driver;
 
 namespace Infrastructure.Mongodb;

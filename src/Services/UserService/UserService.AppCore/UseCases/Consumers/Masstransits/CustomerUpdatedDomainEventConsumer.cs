@@ -1,6 +1,5 @@
 using Contracts.Services;
 using Infrastructure.Mongodb;
-using MassTransit;
 using MediatR;
 
 namespace UserService.AppCore.UseCases.Consumers.Masstransits;

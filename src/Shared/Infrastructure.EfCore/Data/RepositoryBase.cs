@@ -47,9 +47,14 @@ public class RepositoryBase<TDbContext, TEntity> : IRepository<TEntity>, IListRe
         return source;
     }
 
-    
-    
-    
+
+    public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
+    {
+        await _dbSet.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+        return entity;
+    }
+
     public async Task<List<TEntity>> FindAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
     {
         var query = GetQuery(_dbSet, specification);

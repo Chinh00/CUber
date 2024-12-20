@@ -1,3 +1,5 @@
+using Infrastructure.SchemaRegistry;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -6,7 +8,8 @@ builder.Services.AddServiceDefault(builder.Configuration, [typeof(Program), type
     .AddEventStore(builder.Configuration)
     .AddAutoMapperService(typeof(Anchor))
     .AddMasstransitService(builder.Configuration)
-    .AddMongodbService(builder.Configuration);
+    .AddMongodbService(builder.Configuration)
+    .AddSchemaRegistryService(builder.Configuration);
 
 var app = builder.Build();
 

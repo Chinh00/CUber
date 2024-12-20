@@ -22,33 +22,62 @@ namespace UserService.Infrastructure.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("UserService.AppCore.Domain.Customer", b =>
+            modelBuilder.Entity("UserService.AppCore.Domain.Outbox.CustomerOutbox", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("AggregateId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AggregateType")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
+                    b.Property<byte[]>("Payload")
+                        .HasColumnType("bytea");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("Type")
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("Version")
-                        .HasColumnType("bigint");
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerOutboxes");
+                });
+
+            modelBuilder.Entity("UserService.AppCore.Domain.Outbox.DriverOutbox", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AggregateId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AggregateType")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<byte[]>("Payload")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cusomters");
+                    b.ToTable("DriverOutboxes");
                 });
 #pragma warning restore 612, 618
         }

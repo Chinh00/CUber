@@ -10,4 +10,10 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\TripService.Infrastructure\TripService.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

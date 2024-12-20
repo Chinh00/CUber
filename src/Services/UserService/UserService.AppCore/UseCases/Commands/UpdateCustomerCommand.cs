@@ -19,7 +19,8 @@ public record UpdateCustomerCommand(Guid Id, string FullName, string Email, stri
             var customer = await eventStore.LoadEventsAsync<Customer>(id, cancellationToken);
             customer.Update(fullName, email, phoneNumber);
             await eventStore.ApplyDomainEvents(customer);
-            customer.DomainEvents.ToList().ForEach( async (e) => await eventBus.PublishEventAsync((dynamic)e, cancellationToken));
+            customer.DomainEvents.ToList()
+                .ForEach(async (e) => await eventBus.PublishEventAsync((dynamic)e, cancellationToken));
             return ResultModel<CustomerDto>.Create(mapper.Map<CustomerDto>(customer)); 
         }
     }
