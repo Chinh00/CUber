@@ -12,7 +12,7 @@ using UserService.Infrastructure.Data;
 namespace UserService.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20241220025049_InitDb")]
+    [Migration("20241220105711_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -29,58 +29,74 @@ namespace UserService.Infrastructure.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<string>("AggregateId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("aggregate_id");
 
                     b.Property<string>("AggregateType")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("aggregate_type");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<byte[]>("Payload")
-                        .HasColumnType("bytea");
+                        .HasColumnType("bytea")
+                        .HasColumnName("payload");
 
                     b.Property<string>("Type")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("type");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_customer_outboxes");
 
-                    b.ToTable("CustomerOutboxes");
+                    b.ToTable("customer_outboxes", (string)null);
                 });
 
             modelBuilder.Entity("UserService.AppCore.Domain.Outbox.DriverOutbox", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<string>("AggregateId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("aggregate_id");
 
                     b.Property<string>("AggregateType")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("aggregate_type");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<byte[]>("Payload")
-                        .HasColumnType("bytea");
+                        .HasColumnType("bytea")
+                        .HasColumnName("payload");
 
                     b.Property<string>("Type")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("type");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_driver_outboxes");
 
-                    b.ToTable("DriverOutboxes");
+                    b.ToTable("driver_outboxes", (string)null);
                 });
 #pragma warning restore 612, 618
         }

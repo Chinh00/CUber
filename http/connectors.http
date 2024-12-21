@@ -8,7 +8,7 @@ content-type: application/json
 
 
 ###
-GET http://localhost:8083/connectors/user-outbox-source/config HTTP/1.1
+GET http://localhost:8083/connectors/customer-outbox-source/config HTTP/1.1
 content-type: application/json
 
 ###
@@ -32,7 +32,7 @@ Content-Type: application/json
     "database.password": "123123",
     "database.dbname": "cuber",
     "database.server.name": "cuber",
-    "table.whitelist": "public.CustomerOutboxes",
+    "table.include.list": "CustomerOutboxes",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.debezium.converters.BinaryDataConverter",
     "value.converter.schemas.registry.url": "http://schema-registry:8085",
@@ -42,15 +42,15 @@ Content-Type: application/json
     "internal.value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "topic.prefix": "cdc",
     "snapshot.mode": "never",
+    "schema.whitelist": "public",
     "transforms": "outbox",
     "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
-    "transforms.outbox.table.field.event.key": "AggregateId",
-    "transforms.outbox.table.field.event.id": "Id",
-    "transforms.outbox.table.field.event.payload": "Payload",
-    "transforms.outbox.table.field.event.payload.id": "AggregateId",
-    "transforms.outbox.table.fields.additional.placement": "Type:header:eventType",
-    "transforms.outbox.route.by.field": "AggregateType",
-    "transforms.outbox.table.field.event.type": "Type",
+    "transforms.outbox.table.field.event.id": "id",
+    "transforms.outbox.table.field.event.key": "aggregate_id",
+    "transforms.outbox.table.field.event.type": "type",
+    "transforms.outbox.table.field.event.payload.id": "aggregate_id",
+    "transforms.outbox.table.fields.additional.placement": "type:header:eventType",
+    "transforms.outbox.route.by.field": "aggregate_type",
     "poll.interval.ms": "100",
     "transforms.outbox.route.topic.replacement": "customer_cdc_events",
     "log4j.logger.io.debezium": "DEBUG"

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.EfCore.EventStore.Migrations
 {
     [DbContext(typeof(EventStoreContext))]
-    [Migration("20241219161736_InitDb")]
+    [Migration("20241220110456_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -29,29 +29,37 @@ namespace Infrastructure.EfCore.EventStore.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("AggregateId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("aggregate_id");
 
                     b.Property<string>("AggregateType")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("aggregate_type");
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("create_at");
 
                     b.Property<string>("EventType")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("event_type");
 
                     b.Property<string>("Payload")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("payload");
 
                     b.Property<long>("Version")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("version");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_event_stores");
 
-                    b.ToTable("EventStores");
+                    b.ToTable("event_stores", (string)null);
                 });
 #pragma warning restore 612, 618
         }

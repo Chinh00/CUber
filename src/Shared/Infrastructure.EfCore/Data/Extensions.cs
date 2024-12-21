@@ -12,7 +12,7 @@ public static class Extensions
             builder.UseNpgsql(configuration.GetConnectionString("Db"), optionsBuilder =>
             {
                 optionsBuilder.EnableRetryOnFailure();
-            });
+            }).UseSnakeCaseNamingConvention();
         });
         //services.AddHostedService<MigrationHostedService<TDbContext>>();
         services.Scan(e =>

@@ -11,8 +11,8 @@ public class UserMigrationHostedService(IServiceScopeFactory serviceScopeFactory
         try
         {
             await base.DoMoreAction(context);
-            await context.Database.ExecuteSqlAsync(
-                $@"CREATE PUBLICATION debezium_publication FOR TABLE ""public"".""CustomerOutboxes""");
+            // await context.Database.ExecuteSqlAsync(
+            //     $@"CREATE PUBLICATION debezium_publication FOR TABLE ""public"".""customer_outboxes""");
         }
         catch (Exception e)
         {

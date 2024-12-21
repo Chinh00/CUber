@@ -98,7 +98,7 @@ services:
     ports:
       - "8083:8083"
     environment:
-      BOOTSTRAP_SERVERS: broker1:29092
+      BOOTSTRAP_SERVERS: broker1:29092,broker2:29093,broker3:29094
       GROUP_ID: 1
       CONFIG_STORAGE_TOPIC: debezium_config
       OFFSET_STORAGE_TOPIC: debezium_offset
@@ -113,6 +113,8 @@ services:
       - ./connectors/confluentinc-kafka-connect-jdbc-10.8.0/:/kafka/connect/lib-db/
     depends_on:
       - broker1
+      - broker2
+      - broker3
   schema-registry-ui:
     image: landoop/schema-registry-ui
     restart: always

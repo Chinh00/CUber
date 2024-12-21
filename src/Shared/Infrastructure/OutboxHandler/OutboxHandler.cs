@@ -22,7 +22,7 @@ public class OutboxHandler<TOutbox>(ISchemaRegistryClient schemaRegistryClient, 
         outbox.Id = Guid.NewGuid();
         outbox.AggregateType = typeof(TAggregate).Name;
         outbox.AggregateId = aggregateRoot.Id.ToString();
-        outbox.Type = nameof(TEvent);
+        outbox.Type = @event.GetType().Name;
         outbox.Payload = await @event.AsByteArray(schemaRegistryClient, topicName);
         await repository.AddAsync(outbox, cancellationToken);
     }

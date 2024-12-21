@@ -12,7 +12,7 @@ public static class Extensions
             c.UseNpgsql(configuration.GetConnectionString("Db"), builder =>
             {
                 builder.EnableRetryOnFailure();
-            });
+            }).UseSnakeCaseNamingConvention();
         });
         services.AddHostedService<EventStoreHostedService>();
         services.AddScoped<IEventStoreService, EventStoreService>();
