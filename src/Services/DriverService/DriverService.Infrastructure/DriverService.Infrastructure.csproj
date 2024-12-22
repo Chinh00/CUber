@@ -15,4 +15,13 @@
       <None Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Cdc\" />
+      <Folder Include="Data\" />
+    </ItemGroup>
+
 </Project>

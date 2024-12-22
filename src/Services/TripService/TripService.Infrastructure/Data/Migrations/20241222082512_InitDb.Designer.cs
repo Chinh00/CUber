@@ -12,7 +12,7 @@ using TripService.Infrastructure.Data;
 namespace TripService.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TripContext))]
-    [Migration("20241219180258_InitDb")]
+    [Migration("20241222082512_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -29,101 +29,129 @@ namespace TripService.Infrastructure.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("BookingDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("booking_date");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
 
                     b.Property<Guid?>("CustomerInfoId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_info_id");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("notes");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
 
                     b.Property<decimal?>("Tip")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("tip");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
                     b.Property<long>("Version")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("version");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_bookings");
 
-                    b.HasIndex("CustomerInfoId");
+                    b.HasIndex("CustomerInfoId")
+                        .HasDatabaseName("ix_bookings_customer_info_id");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("bookings", (string)null);
                 });
 
             modelBuilder.Entity("TripService.AppCore.Domain.CustomerInfo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("full_name");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_customer_infos");
 
-                    b.ToTable("CustomerInfos");
+                    b.ToTable("customer_infos", (string)null);
                 });
 
             modelBuilder.Entity("TripService.AppCore.Domain.Location", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<Guid>("BookingId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("booking_id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<decimal>("Lat")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("lat");
 
                     b.Property<decimal>("Lng")
-                        .HasColumnType("numeric");
+                        .HasColumnType("numeric")
+                        .HasColumnName("lng");
 
                     b.Property<string>("LocationName")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("location_name");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_locations");
 
-                    b.HasIndex("BookingId");
+                    b.HasIndex("BookingId")
+                        .HasDatabaseName("ix_locations_booking_id");
 
-                    b.ToTable("Locations");
+                    b.ToTable("locations", (string)null);
                 });
 
             modelBuilder.Entity("TripService.AppCore.Domain.Booking", b =>
                 {
                     b.HasOne("TripService.AppCore.Domain.CustomerInfo", "CustomerInfo")
                         .WithMany("Bookings")
-                        .HasForeignKey("CustomerInfoId");
+                        .HasForeignKey("CustomerInfoId")
+                        .HasConstraintName("fk_bookings_customer_infos_customer_info_id");
 
                     b.Navigation("CustomerInfo");
                 });
@@ -134,7 +162,8 @@ namespace TripService.Infrastructure.Data.Migrations
                         .WithMany("Locations")
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_locations_bookings_booking_id");
 
                     b.Navigation("Booking");
                 });

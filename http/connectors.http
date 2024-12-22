@@ -32,7 +32,7 @@ Content-Type: application/json
     "database.password": "123123",
     "database.dbname": "cuber",
     "database.server.name": "cuber",
-    "table.include.list": "CustomerOutboxes",
+    "table.include.list": "public.customer_outboxes",
     "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "value.converter": "io.debezium.converters.BinaryDataConverter",
     "value.converter.schemas.registry.url": "http://schema-registry:8085",
@@ -41,8 +41,7 @@ Content-Type: application/json
     "internal.key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "internal.value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "topic.prefix": "cdc",
-    "snapshot.mode": "never",
-    "schema.whitelist": "public",
+    
     "transforms": "outbox",
     "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
     "transforms.outbox.table.field.event.id": "id",
