@@ -1,9 +1,7 @@
 using Infrastructure;
-using Infrastructure.EfCore.Data;
 using Infrastructure.SchemaRegistry;
 using TripService.AppCore;
 using TripService.Infrastructure;
-using TripService.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

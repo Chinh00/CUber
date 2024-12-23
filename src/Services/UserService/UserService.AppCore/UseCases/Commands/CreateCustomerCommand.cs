@@ -15,11 +15,10 @@ namespace UserService.AppCore.UseCases.Commands;
 public record CreateCustomerCommand(string FullName, string Email, string PhoneNumber) : ICommand<CustomerDto>
 {
     internal class Handler(
-        IEventStoreService eventStore,
         IMapper mapper,
-        IEventBusService eventBusService,
         ISchemaRegistryClient schemaRegistryClient,
-        IRepository<CustomerOutbox> repository)
+        IRepository<CustomerOutbox> repository,
+        IRepository<Customer> repository1)
         : OutboxHandler<CustomerOutbox>(schemaRegistryClient, repository),
             IRequestHandler<CreateCustomerCommand, ResultModel<CustomerDto>>
     {
@@ -28,13 +27,9 @@ public record CreateCustomerCommand(string FullName, string Email, string PhoneN
             Customer customer = new();
             var (fullName, email, phoneNumber) = request;
             customer.Create(fullName, email, phoneNumber);
-            await eventStore.ApplyDomainEvents(customer);
             
-            foreach (var customerDomainEvent in customer.DomainEvents)
-            {
-                await eventBusService.PublishEventAsync((dynamic)customerDomainEvent, cancellationToken);
-            }
-
+            await repository1.AddAsync(customer, cancellationToken);
+            
             var customerCreatedIntegrationEvent = new CustomerCreatedIntegrationEvent()
             {
                 FullName = fullName,

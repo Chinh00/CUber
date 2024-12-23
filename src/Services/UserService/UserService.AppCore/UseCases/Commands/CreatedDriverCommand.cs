@@ -15,11 +15,10 @@ namespace UserService.AppCore.UseCases.Commands;
 public record CreatedDriverCommand(string FullName, string Email, string PhoneNumber) : ICommand<DriverDto>
 {
     internal class Handler(
-        IEventStoreService eventStoreService,
-        IEventBusService eventBusService,
         ISchemaRegistryClient schemaRegistryClient,
         IRepository<DriverOutbox> repository,
-        IMapper mapper) :
+        IMapper mapper,
+        IRepository<Driver> repository1) :
         OutboxHandler<DriverOutbox>(schemaRegistryClient, repository),
         IRequestHandler<CreatedDriverCommand, ResultModel<DriverDto>>
     {
@@ -28,8 +27,10 @@ public record CreatedDriverCommand(string FullName, string Email, string PhoneNu
             var (fullName, email, phoneNumber) = request;
             Driver driver = new();
             driver.Create(fullName, email, phoneNumber);
-            await eventStoreService.ApplyDomainEvents(driver);
-            driver.DomainEvents.ToList().ForEach( async e => await eventBusService.PublishEventAsync((dynamic)e, cancellationToken));
+            // await eventStoreService.ApplyDomainEvents(driver);
+            // driver.DomainEvents.ToList().ForEach( async e => await eventBusService.PublishEventAsync((dynamic)e, cancellationToken));
+            await repository1.AddAsync(driver, cancellationToken);
+            
             var driverCreatedIntegrationEvent = new DriverCreatedIntegrationEvent()
                 { FullName = fullName, Id = driver.Id.ToString(), PhoneNumber = driver.PhoneNumber };
             await SendToOutboxAsync(driver, () => (new DriverOutbox(), driverCreatedIntegrationEvent, "driver_cdc_events"), cancellationToken);

@@ -1,6 +1,8 @@
 using DriverService.AppCore;
 using DriverService.Infrastructure;
 using Infrastructure;
+using Infrastructure.EfCore.EventStore;
+using Infrastructure.Mongodb;
 using Infrastructure.SchemaRegistry;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddServiceDefault(builder.Configuration, [typeof(Program), typeof(Anchor)])
     .AddSchemaRegistryService(builder.Configuration)
-    .AddCdcConsumers();
+    .AddDataStore(builder.Configuration)
+    .AddCdcConsumers()
+    .AddEventStore(builder.Configuration)
+    .AddMongodbService(builder.Configuration);
 
 var app = builder.Build();
 app.UseServiceDefault();

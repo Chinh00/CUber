@@ -9,5 +9,6 @@ public class UserContext(DbContextOptions<UserContext> options) : AppBaseContext
 {
     public DbSet<CustomerOutbox> CustomerOutboxes { get; set; }
     public DbSet<DriverOutbox> DriverOutboxes { get; set; }
-
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Driver> Drivers { get; set; }
 }

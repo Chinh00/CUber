@@ -1,5 +1,3 @@
-using Confluent.Kafka;
-
 namespace Infrastructure.OutboxHandler;
 
 public static class Extensions

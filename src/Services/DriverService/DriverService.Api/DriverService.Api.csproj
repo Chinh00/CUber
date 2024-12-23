@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\DriverService.AppCore\DriverService.AppCore.csproj" />
       <ProjectReference Include="..\DriverService.Infrastructure\DriverService.Infrastructure.csproj" />
     </ItemGroup>

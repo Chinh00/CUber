@@ -1,4 +1,6 @@
+using Infrastructure.AutoMapper;
 using Infrastructure.EfCore.Data;
+using UserService.Infrastructure.Configs;
 using UserService.Infrastructure.Data;
 
 namespace UserService.Infrastructure;
@@ -10,6 +12,8 @@ public static class Extensions
     {
         services.AddEfCoreDefault<UserContext>(configuration, typeof(UserContext));
         services.AddHostedService<UserMigrationHostedService>();
+        services.AddAutoMapperService(typeof(DriverMapperConfig));
+
         action?.Invoke(services);
         return services;
     }

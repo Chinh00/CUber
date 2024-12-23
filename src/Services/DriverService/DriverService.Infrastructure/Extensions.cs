@@ -1,4 +1,6 @@
 using DriverService.Infrastructure.Cdc;
+using DriverService.Infrastructure.Configs;
+using Infrastructure.AutoMapper;
 using Infrastructure.OutboxHandler;
 using Infrastructure.SchemaRegistry;
 using Services;
@@ -10,6 +12,8 @@ public static class Extensions
     public static IServiceCollection AddDataStore(this IServiceCollection services, IConfiguration configuration,
         Action<IServiceCollection>? action = null)
     {
+        services.AddAutoMapperService(typeof(DriverMapperConfig));
+        
         action?.Invoke(services);
         return services;
     }

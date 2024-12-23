@@ -1,8 +1,10 @@
+using Infrastructure.AutoMapper;
 using Infrastructure.EfCore.Data;
 using Infrastructure.OutboxHandler;
 using Infrastructure.SchemaRegistry;
 using Services;
 using TripService.Infrastructure.Cdc;
+using TripService.Infrastructure.Configs;
 using TripService.Infrastructure.Data;
 
 namespace TripService.Infrastructure;
@@ -14,6 +16,7 @@ public static class Extensions
     {
         services.AddEfCoreDefault<TripContext>(configuration, typeof(TripContext));
         services.AddHostedService<TripMigrationHostedService>();
+        services.AddAutoMapperService(typeof(AutoMapperConfig));
         action?.Invoke(services);
         return services;
     }

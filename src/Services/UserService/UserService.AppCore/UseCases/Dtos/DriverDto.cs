@@ -1,6 +1,3 @@
-using AutoMapper;
-using UserService.AppCore.Domain;
-
 namespace UserService.AppCore.UseCases.Dtos;
 
 public class DriverDto
@@ -11,10 +8,3 @@ public class DriverDto
     public string PhoneNumber { get; set; }
 }
 
-public class DriverMapperConfig : Profile
-{
-    public DriverMapperConfig()
-    {
-        CreateMap<Driver, DriverDto>();
-    }
-}

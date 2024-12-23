@@ -1,6 +1,3 @@
-using AutoMapper;
-using UserService.AppCore.Domain;
-
 namespace UserService.AppCore.UseCases.Dtos;
 
 public record CustomerDto
@@ -11,10 +8,4 @@ public record CustomerDto
     public string PhoneNumber { get; init; }
 }
 
-public class CustomerMapperConfig : Profile
-{
-    public CustomerMapperConfig()
-    {
-        CreateMap<Customer, CustomerDto>();
-    }
-}
+

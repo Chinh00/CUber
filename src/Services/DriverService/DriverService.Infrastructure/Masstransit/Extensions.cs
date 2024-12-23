@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace DriverService.Infrastructure.Masstransit;
 
 public static class Extensions

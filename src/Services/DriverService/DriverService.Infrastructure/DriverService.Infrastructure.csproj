@@ -9,6 +9,10 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
@@ -17,11 +21,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Infrastructure.EfCore\Infrastructure.EfCore.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\" />
+      <ProjectReference Include="..\DriverService.AppCore\DriverService.AppCore.csproj" />
     </ItemGroup>
 
 </Project>

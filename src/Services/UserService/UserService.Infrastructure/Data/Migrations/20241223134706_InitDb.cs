@@ -29,6 +29,23 @@ namespace UserService.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "customers",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    full_name = table.Column<string>(type: "text", nullable: true),
+                    email = table.Column<string>(type: "text", nullable: true),
+                    phone_number = table.Column<string>(type: "text", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    version = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_customers", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "driver_outboxes",
                 columns: table => new
                 {
@@ -44,6 +61,24 @@ namespace UserService.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("pk_driver_outboxes", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "drivers",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    full_name = table.Column<string>(type: "text", nullable: true),
+                    email = table.Column<string>(type: "text", nullable: true),
+                    phone_number = table.Column<string>(type: "text", nullable: true),
+                    is_active = table.Column<bool>(type: "boolean", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    version = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_drivers", x => x.id);
+                });
         }
 
         /// <inheritdoc />
@@ -53,7 +88,13 @@ namespace UserService.Infrastructure.Data.Migrations
                 name: "customer_outboxes");
 
             migrationBuilder.DropTable(
+                name: "customers");
+
+            migrationBuilder.DropTable(
                 name: "driver_outboxes");
+
+            migrationBuilder.DropTable(
+                name: "drivers");
         }
     }
 }
