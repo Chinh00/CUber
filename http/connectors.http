@@ -17,7 +17,7 @@ PUT http://localhost:8083/connectors/customer-outbox-source/resume
 
 
 
-### GET request to example server
+### config connector customer source
 POST http://localhost:8083/connectors HTTP/1.1
 Content-Type: application/json
 
@@ -57,3 +57,45 @@ Content-Type: application/json
 }
 ### Remove connector source
 DELETE http://localhost:8083/connectors/customer-outbox-source HTTP/1.1
+
+
+### config connector driver source
+POST http://localhost:8083/connectors HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "driver-outbox-source",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "postgres",
+    "database.password": "123123",
+    "database.dbname": "cuber",
+    "database.server.name": "cuber",
+    "table.include.list": "public.driver_outboxes",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "io.debezium.converters.BinaryDataConverter",
+    "value.converter.schemas.registry.url": "http://schema-registry:8085",
+    "include.schema.changes": "false",
+    "tombstones.on.delete": "false",
+    "internal.key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "internal.value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "topic.prefix": "cdc",
+
+    "transforms": "outbox",
+    "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.table.field.event.id": "id",
+    "transforms.outbox.table.field.event.key": "aggregate_id",
+    "transforms.outbox.table.field.event.type": "type",
+    "transforms.outbox.table.field.event.payload.id": "aggregate_id",
+    "transforms.outbox.table.fields.additional.placement": "type:header:eventType",
+    "transforms.outbox.route.by.field": "aggregate_type",
+    "poll.interval.ms": "100",
+    "transforms.outbox.route.topic.replacement": "driver_cdc_events",
+    "log4j.logger.io.debezium": "DEBUG"
+  }
+}
+### Remove connector source
+DELETE http://localhost:8083/connectors/driver-outbox-source HTTP/1.1

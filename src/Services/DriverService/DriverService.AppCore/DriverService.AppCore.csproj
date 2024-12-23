@@ -16,10 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="UseCases\" />
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\..\..\Shared\Core\Core.csproj" />
     </ItemGroup>
 

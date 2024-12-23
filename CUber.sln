@@ -46,7 +46,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverService.AppCore", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverService.Infrastructure", "src\Services\DriverService\DriverService.Infrastructure\DriverService.Infrastructure.csproj", "{EA439BF3-36E6-4331-B4B9-D29A97322D37}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuadtreeService", "QuadtreeService", "{0B2EEC7C-0E4C-45F0-8894-62C010055A7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Redis", "src\Shared\Infrastructure.Redis\Infrastructure.Redis.csproj", "{859401E5-249B-4226-9038-099A32A20E5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,7 +75,7 @@ Global
 		{881CD613-BC05-43EC-88F3-69890E823BB4} = {E645F06B-57D1-4668-BF7A-2AADB7C3728F}
 		{C2511BA1-FC95-4AA7-957A-2B82E07765E3} = {E645F06B-57D1-4668-BF7A-2AADB7C3728F}
 		{EA439BF3-36E6-4331-B4B9-D29A97322D37} = {E645F06B-57D1-4668-BF7A-2AADB7C3728F}
-		{0B2EEC7C-0E4C-45F0-8894-62C010055A7A} = {6B53CBFE-C3BD-467F-9BAE-D501815E01AA}
+		{859401E5-249B-4226-9038-099A32A20E5C} = {EEC08826-CC1D-4291-8A65-EC35DA04AAEF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42AB1EB9-D8CB-41C1-BBC6-84073A9A8D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -146,5 +146,9 @@ Global
 		{EA439BF3-36E6-4331-B4B9-D29A97322D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA439BF3-36E6-4331-B4B9-D29A97322D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA439BF3-36E6-4331-B4B9-D29A97322D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859401E5-249B-4226-9038-099A32A20E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859401E5-249B-4226-9038-099A32A20E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859401E5-249B-4226-9038-099A32A20E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859401E5-249B-4226-9038-099A32A20E5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

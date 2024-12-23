@@ -1,6 +1,8 @@
+using Infrastructure.Controllers;
+
 namespace TripService.Api.Controllers;
 
-public class TripController
+public class TripController : BaseController
 {
     
 }

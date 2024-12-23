@@ -1,0 +1,19 @@
+{
+  "name": "DriverCreatedIntegrationEvent",
+  "type": "record",
+  "namespace": "Services",
+  "fields": [
+    {
+      "name": "Id",
+      "type": "string"
+    },
+    {
+      "name": "FullName",
+      "type": "string"
+    },
+    {
+      "name": "PhoneNumber",
+      "type": "string"
+    }
+  ],
+}
