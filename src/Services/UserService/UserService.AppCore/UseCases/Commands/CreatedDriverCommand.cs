@@ -32,7 +32,7 @@ public record CreatedDriverCommand(string FullName, string Email, string PhoneNu
             await repository1.AddAsync(driver, cancellationToken);
             
             var driverCreatedIntegrationEvent = new DriverCreatedIntegrationEvent()
-                { FullName = fullName, Id = driver.Id.ToString(), PhoneNumber = driver.PhoneNumber };
+                { FullName = fullName, Id = driver.Id.ToString(), PhoneNumber = driver.PhoneNumber, Email = email};
             await SendToOutboxAsync(driver, () => (new DriverOutbox(), driverCreatedIntegrationEvent, "driver_cdc_events"), cancellationToken);
             return ResultModel<DriverDto>.Create(mapper.Map<DriverDto>(driver));
         }

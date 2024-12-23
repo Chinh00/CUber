@@ -14,20 +14,17 @@ namespace Services
 	using global::Avro.Specific;
 	
 	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("avrogen", "1.12.0+8c27801dc8d42ccc00997f25c0b8f45f8d4a233e")]
-	public partial class DriverCreatedIntegrationEvent : global::Avro.Specific.ISpecificRecord
+	public partial class VehicleCreatedIntegrationEvent : global::Avro.Specific.ISpecificRecord
 	{
-		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse("{\"type\":\"record\",\"name\":\"DriverCreatedIntegrationEvent\",\"namespace\":\"Services\",\"f" +
-				"ields\":[{\"name\":\"Id\",\"type\":\"string\"},{\"name\":\"FullName\",\"type\":\"string\"},{\"name" +
-				"\":\"PhoneNumber\",\"type\":\"string\"},{\"name\":\"Email\",\"type\":\"string\"}]}");
+		public static global::Avro.Schema _SCHEMA = global::Avro.Schema.Parse("{\"type\":\"record\",\"name\":\"VehicleCreatedIntegrationEvent\",\"namespace\":\"Services\",\"" +
+				"fields\":[{\"name\":\"Id\",\"type\":\"string\"},{\"name\":\"Name\",\"type\":\"string\"}]}");
 		private string _Id;
-		private string _FullName;
-		private string _PhoneNumber;
-		private string _Email;
+		private string _Name;
 		public virtual global::Avro.Schema Schema
 		{
 			get
 			{
-				return DriverCreatedIntegrationEvent._SCHEMA;
+				return VehicleCreatedIntegrationEvent._SCHEMA;
 			}
 		}
 		public string Id
@@ -41,37 +38,15 @@ namespace Services
 				this._Id = value;
 			}
 		}
-		public string FullName
+		public string Name
 		{
 			get
 			{
-				return this._FullName;
+				return this._Name;
 			}
 			set
 			{
-				this._FullName = value;
-			}
-		}
-		public string PhoneNumber
-		{
-			get
-			{
-				return this._PhoneNumber;
-			}
-			set
-			{
-				this._PhoneNumber = value;
-			}
-		}
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				this._Email = value;
+				this._Name = value;
 			}
 		}
 		public virtual object Get(int fieldPos)
@@ -79,9 +54,7 @@ namespace Services
 			switch (fieldPos)
 			{
 			case 0: return this.Id;
-			case 1: return this.FullName;
-			case 2: return this.PhoneNumber;
-			case 3: return this.Email;
+			case 1: return this.Name;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Get()");
 			};
 		}
@@ -90,9 +63,7 @@ namespace Services
 			switch (fieldPos)
 			{
 			case 0: this.Id = (System.String)fieldValue; break;
-			case 1: this.FullName = (System.String)fieldValue; break;
-			case 2: this.PhoneNumber = (System.String)fieldValue; break;
-			case 3: this.Email = (System.String)fieldValue; break;
+			case 1: this.Name = (System.String)fieldValue; break;
 			default: throw new global::Avro.AvroRuntimeException("Bad index " + fieldPos + " in Put()");
 			};
 		}

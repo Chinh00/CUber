@@ -16,7 +16,6 @@ public static class Extensions
         });
         services.AddHostedService<EventStoreHostedService>();
         services.AddScoped<IEventStoreService, EventStoreService>();
-        
         action?.Invoke(services);
         return services;
     }

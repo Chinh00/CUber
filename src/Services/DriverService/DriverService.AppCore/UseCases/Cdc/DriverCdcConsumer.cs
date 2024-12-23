@@ -10,7 +10,8 @@ public sealed class DriverCdcConsumer(IEventStoreService eventStoreService, IEve
 {
     public async Task Handle(DriverCreatedIntegrationEvent notification, CancellationToken cancellationToken)
     {
-        DriverInfo driverInfo = new(Guid.Parse(notification.Id), notification.FullName, notification.PhoneNumber);
+        Console.WriteLine("Driver Created");
+        DriverInfo driverInfo = new(Guid.Parse(notification.Id), notification.FullName, notification.Email, notification.PhoneNumber);
         await eventStoreService.ApplyDomainEvents(driverInfo);
         driverInfo.DomainEvents.ToList()
             .ForEach(async e => await eventBusService.PublishEventAsync((dynamic)e, cancellationToken));

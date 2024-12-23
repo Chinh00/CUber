@@ -1,6 +1,10 @@
+using Core.EventStore;
 using DriverService.Infrastructure.Cdc;
 using DriverService.Infrastructure.Configs;
+using DriverService.Infrastructure.Data;
 using Infrastructure.AutoMapper;
+using Infrastructure.EfCore.Data;
+using Infrastructure.Masstransit.BusService;
 using Infrastructure.OutboxHandler;
 using Infrastructure.SchemaRegistry;
 using Services;
@@ -13,6 +17,10 @@ public static class Extensions
         Action<IServiceCollection>? action = null)
     {
         services.AddAutoMapperService(typeof(DriverMapperConfig));
+        services.AddScoped<IEventBusService, BusService>();
+        services.AddEfCoreDefault<DriverContext>(configuration, typeof(DriverContext));
+        services.AddHostedService<DriverMigrationHostedService>();
+        
         
         action?.Invoke(services);
         return services;

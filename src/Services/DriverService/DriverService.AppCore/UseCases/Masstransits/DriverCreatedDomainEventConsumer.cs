@@ -1,12 +1,19 @@
 using Contracts.Services;
+using Infrastructure.Mongodb;
 using MediatR;
 
 namespace DriverService.AppCore.UseCases.Masstransits;
 
-public class DriverCreatedDomainEventConsumer : INotificationHandler<DriverCreatedDomainEvent>
+public class DriverCreatedDomainEventConsumer(IMongoRepository<Projections.DriverDetail> repository)
+    : INotificationHandler<DriverCreatedDomainEvent>
 {
-    public Task Handle(DriverCreatedDomainEvent notification, CancellationToken cancellationToken)
+
+    public async Task Handle(DriverCreatedDomainEvent notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await repository.OnReplaceAsync(new Projections.DriverDetail(notification.FullName, notification.Email, notification.PhoneNumber)
+        {
+            Id = Guid.Parse(notification.Id.ToString()),
+            Version = notification.Version
+        }, e => e.Id == notification.Id && notification.Version > e.Version, cancellationToken);
     }
 }
