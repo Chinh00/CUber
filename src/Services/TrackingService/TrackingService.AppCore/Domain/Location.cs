@@ -4,8 +4,7 @@ namespace TrackingService.AppCore.Domain;
 
 public class Location : BaseEntity
 {
-    public Guid VehicleId { get; set; }
-    public virtual VehicleInfo Vehicle { get; set; }
+    public VehicleInfo Vehicle { get; set; }
     public decimal Longitude { get; set; }
     public decimal Latitude { get; set; }
     public decimal MinLongitude { get; set; }

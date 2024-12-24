@@ -45,6 +45,26 @@ public class RedisService<T> : IRedisService<T> where T : BaseEntity
     public async Task<T> HashGetAsync(string key, string field)
     {   
         var value = await Database.HashGetAsync(key, field);
-        return JsonConvert.DeserializeObject<T>(value);
+        return !value.HasValue ? null : JsonConvert.DeserializeObject<T>(value);
+    }
+
+    public async Task<T> HashOrSetAsync(string key, string field, T value, CancellationToken cancellationToken = default)
+    {
+        var tmp = await HashGetAsync(key, field);
+        if (tmp == null)
+        {
+            await HashSetAsync(key, field, value, cancellationToken);
+        }
+        return tmp;
+    }
+
+    public async Task HashRemoveAsync(string key, string field, CancellationToken cancellationToken = default)
+    {
+        await Database.HashDeleteAsync(key, field);
+    }
+
+    public async Task<string[]> HashGetKeysAsync(string key, CancellationToken cancellationToken = default)
+    {
+        return (await Database.HashKeysAsync(key)).ToStringArray();
     }
 }

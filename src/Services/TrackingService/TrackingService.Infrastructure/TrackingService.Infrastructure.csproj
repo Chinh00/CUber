@@ -15,4 +15,9 @@
       <None Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

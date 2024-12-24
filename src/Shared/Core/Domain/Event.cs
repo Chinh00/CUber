@@ -10,4 +10,4 @@ public interface DomainEvent : INotification, IEvent
     long Version { get; }
 }
 
-public interface IIntegrationEvent : INotification, IEvent {}
+public interface IIntegrationEvent : IEvent {}

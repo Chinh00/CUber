@@ -1,3 +1,6 @@
+using Confluent.Kafka;
+using Contracts.Services;
+using Infrastructure.Mongodb;
 using MassTransit;
 using TripService.Infrastructure.Masstransit.StateMachine;
 
@@ -14,10 +17,72 @@ public static class Extensions
             r.UsingInMemory();
             r.AddRider(t =>
             {
-                t.AddSagaStateMachine<BookingStateMachine, BookingState, BookingDefinition>();
-                t.UsingKafka((context, configurator) =>
+                t.AddProducer<TripCreatedIntegrationEvent>(nameof(TripCreatedIntegrationEvent));
+                t.AddProducer<MakeInvitedIntegrationEvent>(nameof(MakeInvitedIntegrationEvent));
+
+                
+                
+                var mOption = new MongodbOption();
+                configuration.GetSection(MongodbOption.Mongodb).Bind(mOption);
+                t.AddSagaStateMachine<BookingStateMachine, BookingState, BookingDefinition>().MongoDbRepository(c =>
                 {
-                    configurator.Host(configuration.GetValue<string>("Kafka:BootstrapServers"));
+                    c.Connection = mOption.ToString();
+                    c.DatabaseName = mOption.Database;
+                    c.CollectionName = nameof(BookingStateMachine);
+                });
+                t.UsingKafka((context, config) =>
+                {
+                    config.Host(configuration.GetValue<string>("Kafka:BootstrapServers"));
+                    config.TopicEndpoint<TripCreatedIntegrationEvent>(nameof(TripCreatedIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<MakeInvitedIntegrationEvent>(nameof(MakeInvitedIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<DriverInviteIntegrationEvent>(nameof(DriverInviteIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<DriverNotfoundIntegrationEvent>(nameof(DriverNotfoundIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<TripPickedIntegrationEvent>(nameof(TripPickedIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<DriverCancelTripIntegrationEvent>(nameof(DriverCancelTripIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<DriverReadyIntegrationEvent>(nameof(DriverReadyIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+
                 });
             });
         });

@@ -4,11 +4,11 @@ namespace TripService.AppCore.Domain;
 
 public class Booking : AggregateBase
 {
-    public Guid CustomerId { get; private set; }
-    public virtual CustomerInfo CustomerInfo { get; private set; }
-    public decimal Price { get; private set; }
-    public decimal? Tip { get; private set; }
-    public DateTime BookingDate { get; private set; } 
-    public string Notes { get; private set; }
-    public virtual ICollection<Location> Locations { get; private set; }
+    public Guid CustomerId { get;  set; }
+    public virtual CustomerInfo CustomerInfo { get;  set; }
+    public decimal Price { get;  set; }
+    public decimal? Tip { get;  set; }
+    public DateTime BookingDate { get;  set; } 
+    public string Notes { get;  set; }
+    public virtual ICollection<Location> Locations { get;  set; } = new List<Location>();
 }

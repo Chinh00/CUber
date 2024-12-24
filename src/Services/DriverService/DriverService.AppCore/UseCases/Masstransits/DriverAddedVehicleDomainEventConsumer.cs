@@ -1,10 +1,16 @@
+using Confluent.SchemaRegistry;
 using Contracts.Services;
+using Core.Repository;
+using DriverService.AppCore.Domain.Outboxs;
 using Infrastructure.Mongodb;
+using Infrastructure.OutboxHandler;
 using MediatR;
+using Services;
 
 namespace DriverService.AppCore.UseCases.Masstransits;
 
-public class DriverAddedVehicleDomainEventConsumer(IMongoRepository<Projections.DriverDetail> repository)
+public class DriverAddedVehicleDomainEventConsumer(
+    IMongoRepository<Projections.DriverDetail> repository)
     : INotificationHandler<DriverAddedVehicleDomainEvent>
 {
     public async Task Handle(DriverAddedVehicleDomainEvent notification, CancellationToken cancellationToken)
@@ -17,5 +23,7 @@ public class DriverAddedVehicleDomainEventConsumer(IMongoRepository<Projections.
             Version = version
         };
         await repository.OnReplaceAsync(driverDetail, e => e.Id == notification.Id && e.Version < notification.Version, cancellationToken);
+        
+        
     }
 }

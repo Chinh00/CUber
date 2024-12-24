@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\Contracts\Contracts.csproj" />
       <ProjectReference Include="..\..\..\Shared\Core\Core.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure.Redis\Infrastructure.Redis.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />

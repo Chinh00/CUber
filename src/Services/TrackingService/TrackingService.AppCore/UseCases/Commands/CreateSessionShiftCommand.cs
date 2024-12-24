@@ -13,11 +13,11 @@ public record CreateSessionShiftCommand(Guid VehicleId) : ICommand<bool>
 
         public async Task<ResultModel<bool>> Handle(CreateSessionShiftCommand request, CancellationToken cancellationToken)
         {
-            var result = await locationService.HashSetAsync(nameof(Location), $"{nameof(Location)}:{request.VehicleId.ToString()}",
-                new Location()
-                {
-                    VehicleId = request.VehicleId
-                }, cancellationToken);
+            var result = await locationService.HashGetAsync(nameof(Location),
+                $"{nameof(Location)}:{request.VehicleId.ToString()}");
+            result.Vehicle.VehicleStatus = VehicleStatus.Active;
+            await locationService.HashSetAsync(nameof(Location),
+                $"{nameof(Location)}:{request.VehicleId.ToString()}", result, cancellationToken);
             return ResultModel<bool>.Create(true);
         }
     }

@@ -1,7 +1,7 @@
 using AutoMapper;
 using TrackingService.AppCore.Domain;
 
-namespace TrackingService.AppCore.Dtos;
+namespace TrackingService.AppCore.UseCases.Dtos;
 
 public record LocationDto
 {
