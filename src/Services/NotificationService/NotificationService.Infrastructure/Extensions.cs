@@ -1,5 +1,3 @@
-using MassTransit;
-
 namespace NotificationService.Infrastructure;
 
 public static class Extensions

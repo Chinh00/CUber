@@ -1,5 +1,3 @@
-using Confluent.Kafka;
-using Contracts.Services;
 using Core.EventStore;
 using Infrastructure.Masstransit.BusService;
 using MassTransit;

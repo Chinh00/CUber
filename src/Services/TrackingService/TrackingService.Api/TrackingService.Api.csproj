@@ -11,7 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Infrastructure.SignaIR\Infrastructure.SignaIR.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\TrackingService.AppCore\TrackingService.AppCore.csproj" />
       <ProjectReference Include="..\TrackingService.Infrastructure\TrackingService.Infrastructure.csproj" />

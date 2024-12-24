@@ -4,12 +4,12 @@ using MediatR;
 
 namespace TrackingService.Infrastructure;
 
-public sealed class EventDispatcher(ILogger<EventDispatcher> logger, IServiceProvider provider) : IConsumer<IIntegrationEvent>
+public class EventDispatcher(IMediator mediator) : IConsumer<IIntegrationEvent>
 {
+
     public async Task Consume(ConsumeContext<IIntegrationEvent> context)
     {
-        Console.WriteLine("EventDispatcher");
-        var mediator = provider.GetRequiredService<IMediator>();
-        await mediator.Publish((dynamic)context.Message);
+        Console.WriteLine($"Event: {context.Message.GetType().FullName}");
+        await mediator.Publish(context.Message);
     }
 }

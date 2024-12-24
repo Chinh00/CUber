@@ -1,6 +1,5 @@
 using AutoMapper;
 using Core.Domain;
-using Core.EventStore;
 using MediatR;
 using UserService.AppCore.Domain;
 using UserService.AppCore.UseCases.Dtos;

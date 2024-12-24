@@ -1,11 +1,6 @@
-using Confluent.SchemaRegistry;
 using Contracts.Services;
-using Core.Repository;
-using DriverService.AppCore.Domain.Outboxs;
 using Infrastructure.Mongodb;
-using Infrastructure.OutboxHandler;
 using MediatR;
-using Services;
 
 namespace DriverService.AppCore.UseCases.Masstransits;
 

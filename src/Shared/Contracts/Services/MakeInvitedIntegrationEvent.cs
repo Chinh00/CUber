@@ -1,9 +1,10 @@
 using Core.Domain;
-using MediatR;
+using Services;
 
 namespace Contracts.Services;
 
-public interface MakeInvitedIntegrationEvent : IIntegrationEvent, INotification
+public class MakeInvitedIntegrationEvent : IIntegrationEvent
 {
     public Guid TripId { get; set; }
+    public List<LocationDetail> Locations { get; set; } = [];
 };

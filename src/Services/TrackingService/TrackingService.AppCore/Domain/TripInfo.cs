@@ -5,5 +5,5 @@ namespace TrackingService.AppCore.Domain;
 
 public class TripInfo : BaseEntity
 {
-    public List<LocationDetail> Locations { get; set; }
+    public List<LocationDetail> Locations { get; set; } = [];
 }

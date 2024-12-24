@@ -1,7 +1,6 @@
 using AutoMapper;
 using Confluent.SchemaRegistry;
 using Core.Domain;
-using Core.EventStore;
 using Core.Repository;
 using Infrastructure.OutboxHandler;
 using MediatR;

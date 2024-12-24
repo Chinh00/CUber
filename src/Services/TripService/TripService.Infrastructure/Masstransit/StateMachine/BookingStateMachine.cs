@@ -8,7 +8,6 @@ public class BookingStateMachine : MassTransitStateMachine<BookingState>
     public BookingStateMachine()
     {
         Event(() => TripCreated, configurator => configurator.CorrelateById(context => context.Message.TripId));
-        Event(() => MakeInvited, configurator => configurator.CorrelateById(context => context.Message.TripId));
         Event(() => DriverInvite, configurator => configurator.CorrelateById(context => context.Message.TripId));
         Event(() => DriverNotfound, configurator => configurator.CorrelateById(context => context.Message.TripId));
         Event(() => TripPicked, configurator => configurator.CorrelateById(context => context.Message.TripId));
@@ -24,7 +23,8 @@ public class BookingStateMachine : MassTransitStateMachine<BookingState>
             context.Saga.TripId = context.Message.TripId;
         }).Produce(context => context.Init<MakeInvitedIntegrationEvent>(new
         {
-            context.Saga.TripId
+            context.Saga.TripId,
+            Locations = context.Message.LocationDetails
         })).TransitionTo(Started));
         During(Started,
             When(DriverInvite).ThenAsync(async c =>
@@ -59,7 +59,6 @@ public class BookingStateMachine : MassTransitStateMachine<BookingState>
     public State Completed { get; private set; }
     
     public Event<TripCreatedIntegrationEvent> TripCreated { get; private set; }
-    public Event<MakeInvitedIntegrationEvent> MakeInvited { get; private set; }
     public Event<DriverInviteIntegrationEvent> DriverInvite { get; private set; }
     public Event<DriverNotfoundIntegrationEvent> DriverNotfound { get; private set; }
     public Event<TripPickedIntegrationEvent> TripPicked { get; private set; }
