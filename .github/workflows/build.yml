@@ -27,6 +27,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Run tests 
+        run: dotnet test ./test/**/*.csproj --no-build --configuration Release --verbosity normal
       - name: Build and push Docker image User Service
         uses: docker/build-push-action@v5
         with:
@@ -55,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: src/Services/Proxy/AppGateway/Dockerfile
+          file: src/Services/NotificationService/NotificationService.Api/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_NOTIFICATION_SERVICE_NAME}}:latest
       - name: Build and push Docker image Driver Service
