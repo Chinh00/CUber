@@ -22,7 +22,13 @@ public static class Extensions
             {
                 t.AddProducer<DriverInviteIntegrationEvent>(nameof(DriverInviteIntegrationEvent));
                 t.AddProducer<DriverNotfoundIntegrationEvent>(nameof(DriverNotfoundIntegrationEvent));
-                
+                t.AddProducer<TripPickedIntegrationEvent>(nameof(TripPickedIntegrationEvent));
+                t.AddProducer<DriverReadyIntegrationEvent>(nameof(DriverReadyIntegrationEvent));
+                t.AddProducer<TripEndIntegrationEvent>(nameof(TripEndIntegrationEvent));
+
+                t.AddProducer<PaymentSuccessIntegrationEvent>(nameof(PaymentSuccessIntegrationEvent));
+                t.AddProducer<PaymentFailIntegrationEvent>(nameof(PaymentFailIntegrationEvent));
+
                 
                 t.AddConsumer<EventDispatcher>();
                 t.UsingKafka((context, config) =>

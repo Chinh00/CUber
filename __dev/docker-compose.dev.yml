@@ -6,6 +6,8 @@ services:
     ports:
       - "6379:6379"
       - "8001:8001"
+    volumes:
+      - redis-data:/data
   postgres:
     build:
       dockerfile: ./postgres/Dockerfile
@@ -142,3 +144,5 @@ services:
     ports:
       - "8085:8085"
 
+volumes:
+  redis-data:

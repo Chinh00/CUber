@@ -1,6 +1,8 @@
+using Core.Domain;
+
 namespace Contracts.Services;
 
-public record TripPickedIntegrationEvent(Guid TripId)
+public class TripPickedIntegrationEvent : IIntegrationEvent
 {
-    
+    public Guid TripId { get; set; }
 }

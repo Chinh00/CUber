@@ -2,7 +2,7 @@ using Core.Domain;
 
 namespace Contracts.Services;
 
-public class DriverReadyIntegrationEvent : IIntegrationEvent
+public class TripEndIntegrationEvent : IIntegrationEvent
 {
     public Guid TripId { get; set; }
 }

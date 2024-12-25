@@ -19,6 +19,7 @@ public class MakeInviteIntegrationEventHandler(
         logger.LogInformation("Handling MakeInvitedIntegrationEvent");
          var tripInfo = new TripInfo()
          {
+             Id = notification.TripId,
              Locations = notification.Locations
          };
          var driverIds = await locationService.HashGetKeysAsync(nameof(Location), cancellationToken);

@@ -82,6 +82,34 @@ public static class Extensions
                             c.CreateIfMissing(n => n.NumPartitions = 1);
                             c.ConfigureSaga<BookingState>(context);
                         });
+                    config.TopicEndpoint<TripEndIntegrationEvent>(nameof(TripEndIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<CustomerCancelTripIntegrationEvent>(nameof(CustomerCancelTripIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<PaymentSuccessIntegrationEvent>(nameof(PaymentSuccessIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
+                    config.TopicEndpoint<PaymentFailIntegrationEvent>(nameof(PaymentFailIntegrationEvent), "trip-group",
+                        c =>
+                        {
+                            c.AutoOffsetReset = AutoOffsetReset.Earliest;
+                            c.CreateIfMissing(n => n.NumPartitions = 1);
+                            c.ConfigureSaga<BookingState>(context);
+                        });
 
                 });
             });
