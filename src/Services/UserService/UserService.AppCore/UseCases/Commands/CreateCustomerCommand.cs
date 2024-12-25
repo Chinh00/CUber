@@ -13,7 +13,7 @@ namespace UserService.AppCore.UseCases.Commands;
 
 public record CreateCustomerCommand(string FullName, string Email, string PhoneNumber) : ICommand<CustomerDto>
 {
-    internal class Handler(
+    public class Handler(
         IMapper mapper,
         ISchemaRegistryClient schemaRegistryClient,
         IRepository<CustomerOutbox> repository,
