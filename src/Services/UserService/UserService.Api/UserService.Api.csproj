@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +16,12 @@
       <ProjectReference Include="..\..\..\Shared\Infrastructure.Mongodb\Infrastructure.Mongodb.csproj" />
       <ProjectReference Include="..\..\..\Shared\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\UserService.Infrastructure\UserService.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
