@@ -1,7 +1,7 @@
 namespace Infrastructure.EfCore.Data;
 
 public class MigrationHostedService<TDbContext>(IServiceScopeFactory serviceScopeFactory) : IHostedService
-    where TDbContext : AppBaseContext
+    where TDbContext : DbContext
 {
     protected virtual Task DoMoreAction(TDbContext context) => Task.CompletedTask;
     public async Task StartAsync(CancellationToken cancellationToken)

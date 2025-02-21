@@ -10,7 +10,7 @@ public static class Extensions
     {
 
         services.AddLoggingService();
-        services.AddAuthService();
+        services.AddAuthService(configuration);
         services.AddControllerService(types);
         services.AddSwaggerService();
         action?.Invoke(services);

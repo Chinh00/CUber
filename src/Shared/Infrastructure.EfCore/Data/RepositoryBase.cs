@@ -3,7 +3,7 @@ using Core.Specifications;
 namespace Infrastructure.EfCore.Data;
 
 public class RepositoryBase<TDbContext, TEntity> : IRepository<TEntity>, IListRepository<TEntity>
-    where TDbContext : AppBaseContext
+    where TDbContext : DbContext
     where TEntity : BaseEntity
 {
     private readonly TDbContext _context;

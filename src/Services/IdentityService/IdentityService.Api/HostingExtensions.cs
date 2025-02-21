@@ -1,9 +1,7 @@
 using Duende.IdentityServer;
-using IdentityService.Api;
-using IdentityService.Api.Pages.Admin.ApiScopes;
-using IdentityService.Api.Pages.Admin.Clients;
-using IdentityService.Api.Pages.Admin.IdentityScopes;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using IdentityService.Api.Data;
+using IdentityService.Api.Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -15,7 +13,14 @@ internal static class HostingExtensions
     {
         builder.Services.AddRazorPages();
 
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("Db");
+        builder.Services.AddDbContext<DataContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("Db")));
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<DataContext>()
+            // .AddSignInManager<SigninManager>()
+            // .AddUserManager<UserManager>()
+            .AddDefaultTokenProviders();
 
         var isBuilder = builder.Services
             .AddIdentityServer(options =>
@@ -27,25 +32,13 @@ internal static class HostingExtensions
 
                 // see https://docs.duendesoftware.com/identityserver/v5/fundamentals/resources/
                 options.EmitStaticAudienceClaim = true;
-            })
-            .AddTestUsers(TestUsers.Users)
-            // this adds the config data from DB (clients, resources, CORS)
-            .AddConfigurationStore(options =>
-            {
-                options.ConfigureDbContext = b =>
-                    b.UseSqlite(connectionString,
-                        dbOpts => dbOpts.MigrationsAssembly(typeof(Program).Assembly.FullName));
-            })
-            // this is something you will want in production to reduce load on and requests to the DB
-            //.AddConfigurationStoreCache()
-            //
-            // this adds the operational data from DB (codes, tokens, consents)
-            .AddOperationalStore(options =>
-            {
-                options.ConfigureDbContext = b =>
-                    b.UseSqlite(connectionString,
-                        dbOpts => dbOpts.MigrationsAssembly(typeof(Program).Assembly.FullName));
-            });
+            }).AddInMemoryIdentityResources(Config.IdentityResources)
+            .AddInMemoryApiScopes(Config.ApiScopes)
+            // .AddInMemoryClients(Config.Clients(builder.Configuration))
+            // .AddTestUsers(Config.TestUsers)
+            .AddAspNetIdentity<ApplicationUser>()
+            // .AddExtensionGrantValidator<ExternalGrantValidator>()
+            .AddDeveloperSigningCredential();
 
         builder.Services.AddAuthentication()
             .AddGoogle(options =>
@@ -60,29 +53,8 @@ internal static class HostingExtensions
             });
 
 
-        // this adds the necessary config for the simple admin/config pages
-        {
-            builder.Services.AddAuthorization(options =>
-                options.AddPolicy("admin",
-                    policy => policy.RequireClaim("sub", "1"))
-            );
+        
 
-            builder.Services.Configure<RazorPagesOptions>(options =>
-                options.Conventions.AuthorizeFolder("/Admin", "admin"));
-
-            builder.Services.AddTransient<IdentityService.Api.Pages.Portal.ClientRepository>();
-            builder.Services.AddTransient<ClientRepository>();
-            builder.Services.AddTransient<IdentityScopeRepository>();
-            builder.Services.AddTransient<ApiScopeRepository>();
-        }
-
-        // if you want to use server-side sessions: https://blog.duendesoftware.com/posts/20220406_session_management/
-        // then enable it
-        //isBuilder.AddServerSideSessions();
-        //
-        // and put some authorization on the admin/management pages using the same policy created above
-        //builder.Services.Configure<RazorPagesOptions>(options =>
-        //    options.Conventions.AuthorizeFolder("/ServerSideSessions", "admin"));
 
         return builder.Build();
     }
